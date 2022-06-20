@@ -210,3 +210,4 @@ packages/react-devtools-timeline/dist
 *.vsix
 
 .envrc
+.direnv
