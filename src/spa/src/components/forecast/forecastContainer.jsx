@@ -5,19 +5,15 @@ import { locationContext } from "../location/locationReducer";
 import Forecast from "./forecast";
 
 import {
-    forecastInitialState,
-    forecastReducer,
-    InitForecastState, 
-    FORECAST_ACTION
+    FORECAST_ACTION,
+    forecastContext
 } from "./forecastReducer";
 
 
 const ForecastContainer = (props) => {
 
     const {locationState} = useContext(locationContext); 
-    const [forecastState, forecastDispatch] = useReducer(
-        forecastReducer, forecastInitialState, InitForecastState
-    );
+    const {forecastState, forecastDispatch} = useContext(forecastContext); 
 
     const fetch = async () => {
         try {
@@ -35,6 +31,7 @@ const ForecastContainer = (props) => {
       if (
         !locationState.pristine
         && !locationState.loading
+        && forecastState.loading
         ) fetch()
     }, [
       locationState.loading,

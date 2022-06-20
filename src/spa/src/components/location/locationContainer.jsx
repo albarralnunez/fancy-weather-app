@@ -2,11 +2,15 @@ import React, { useContext, useEffect } from "react";
 import SearchFancyWeatherApi from "../../shared/searchFancyWeatherApi";
 import { locationContext, LOCATION_ACTION } from "./locationReducer";
 import Location from "./location";
+import { currentWeatherContext, CURRENT_WEATHER_ACTION } from "../currentWeather/currentWeatherReducer";
+import { forecastContext, FORECAST_ACTION } from "../forecast/forecastReducer";
 
 
 const LocationContainer = (props) => {
 
     const {locationState, locationDispatch} = useContext(locationContext); 
+    const {currentWeatherState, currentWeatherDispatch} = useContext(currentWeatherContext); 
+    const {forecastState, forecastDispatch} = useContext(forecastContext); 
 
     var options = {
       enableHighAccuracy: false,
@@ -84,7 +88,13 @@ const LocationContainer = (props) => {
     const handleZipCodeSearch = async (e) => {
       locationDispatch({ 
         type: LOCATION_ACTION.SEARCH,
-      })
+      });
+      currentWeatherDispatch({
+        type: CURRENT_WEATHER_ACTION.SEARCH,
+      });
+      forecastDispatch({
+        type: FORECAST_ACTION.SEARCH,
+      });
       fetchByZipCode()
     }
 
@@ -102,6 +112,12 @@ const LocationContainer = (props) => {
       locationDispatch({ 
         type: LOCATION_ACTION.RESET_LOCATION,
       })
+      currentWeatherDispatch({
+        type: CURRENT_WEATHER_ACTION.SEARCH,
+      });
+      forecastDispatch({
+        type: FORECAST_ACTION.SEARCH,
+      });
       fetchCoordinatesFromBrowser()
     }
   

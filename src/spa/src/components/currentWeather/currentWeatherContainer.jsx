@@ -4,25 +4,21 @@ import SearchFancyWeatherApi from "../../shared/searchFancyWeatherApi";
 import { locationContext } from "../location/locationReducer";
 import CurrentWeather from "./currentWeather";
 import {
-    currentWeatherInitialState,
-    CurrentWeatherReducer,
-    CURRENT_WEATHER_ACTION,
-    InitCurrentWeatherState 
+  currentWeatherContext,
+  CURRENT_WEATHER_ACTION,
 } from "./currentWeatherReducer";
 
 
 const CurrentWeatherContaienr = (props) => {
 
-    const {locationState, locationDispatch} = useContext(locationContext); 
-    const [currentWeatherState, weatherDispatch] = useReducer(
-        CurrentWeatherReducer, currentWeatherInitialState, InitCurrentWeatherState
-    );
+    const {locationState} = useContext(locationContext); 
+    const {currentWeatherState, currentWeatherDispatch} = useContext(currentWeatherContext); 
 
     const fetch = async () => {
         try {
           const response = await SearchFancyWeatherApi(`/query/get-current-weather/?lat=${locationState.location.coordinates.lat}&lon=${locationState.location.coordinates.lon}`)
           
-          weatherDispatch({
+          currentWeatherDispatch({
             type: CURRENT_WEATHER_ACTION.UPDATE_CURRENT_WEATHER,
             payload: response.data
           })
@@ -35,6 +31,7 @@ const CurrentWeatherContaienr = (props) => {
       if (
         !locationState.pristine
         && !locationState.loading
+        && currentWeatherState.loading
         ) fetch()
     }, [
       locationState.loading,
@@ -43,7 +40,7 @@ const CurrentWeatherContaienr = (props) => {
 
     return (
       <>
-      <CurrentWeather state={currentWeatherState} />
+        <CurrentWeather state={currentWeatherState} /> 
       </> 
     )
 }
