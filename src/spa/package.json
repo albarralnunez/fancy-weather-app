@@ -1,0 +1,55 @@
+{
+  "name": "fancy-weather",
+  "version": "0.1.0",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "axios": "^0.27.2",
+    "babel-plugin-formatjs": "^10.3.24",
+    "bootstrap": "4.3.1",
+    "cronstrue": "^1.98.0",
+    "jest": "^26.1.0",
+    "lodash": "^4.17.20",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-infinite-scroller": "^1.2.4",
+    "react-intl": "^6.0.4",
+    "react-router-dom": "^5.2.0"
+  },
+  "engines": {
+    "node": ">=16.15"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "scripts": {
+    "test": "./node_modules/.bin/jest",
+    "test:watch": "npm test -- --watch",
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@openapitools/openapi-generator-cli": "^2.5.1",
+    "@webpack-cli/serve": "^1.7.0",
+    "babel-jest": "^26.1.0",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "react-hot-loader": "^4.13.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2"
+  }
+}

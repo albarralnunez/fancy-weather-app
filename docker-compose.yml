@@ -1,0 +1,34 @@
+version: "3.2"
+
+services:
+
+  backend:
+    build:
+      context: src/backend
+      dockerfile: docker/dev.Dockerfile
+    expose:
+      - 8083
+    environment:
+      - OPEN_WEATHER_API_KEY=${OPEN_WEATHER_API_KEY}
+    volumes:
+      - ./src/backend:/workspace
+  
+  spa:
+    build:
+      context: ./src/spa
+      dockerfile: docker/dev.Dockerfile
+    ports:
+      - 8085:8085
+    volumes:
+      - ./src/spa:/bindmount:rw
+      - ./src/spa/node_modules:/src/node_modules
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    expose:
+      - 6379
+
+volumes:
+  node_modules:

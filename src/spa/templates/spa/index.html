@@ -1,0 +1,19 @@
+{% load static compress %}
+
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title> Lalia </title>
+    </head>
+    <body>
+    <div id="app">
+        <!-- React will load here -->
+    </div>
+    </body>
+
+    {% compress js %}
+    <script src="{% static 'spa/bundle.js' %}"></script>
+    {% endcompress %}
+
+</html>
