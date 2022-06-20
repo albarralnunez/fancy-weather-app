@@ -1,6 +1,8 @@
 from dependency_injector import containers, providers
 
 from dependency_injector.providers import Factory
+from core.application.get_country_by_coordinates import GetCountryByCoordinatesQueryHandler
+from core.domain.queries.get_country_by_coordinates import GetCountryByCoordinatesQuery
 from core.application.get_current_weather_handler import GetCurrentWeatherHandler
 from core.application.get_forecast_5d_3h import GetForecast5d3hHandler
 from core.domain.queries.get_forecast_5d_3h import GetForecast5d3hQuery
@@ -26,6 +28,9 @@ class ApplicationContainer(containers.DeclarativeContainer):
             ),
             GetLocationByZipCodeQuery: Factory(
                 GetLocationByZipCodeHandler, geo_client=geo_client
+            ),
+            GetCountryByCoordinatesQuery: Factory(
+                GetCountryByCoordinatesQueryHandler, geo_client=geo_client
             )
             
         }

@@ -28,10 +28,22 @@ const LocationContainer = (props) => {
           lon: crd.longitude,
         }
       });
+      fetchCountry(crd.latitude, crd.longitude);
     }
     
     const errors = err => {
       console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    const fetchCountry = async (lat, lon) => {
+      console.log("fetchCountry");
+      const response = await SearchFancyWeatherApi(
+        `/query/get-country-by-coordinates/?lat=${lat}&lon=${lon}`
+      );
+      locationDispatch({
+        type: LOCATION_ACTION.UPDATE_COUNTRY,
+        payload: response.data
+      });
     }
 
     const fetchCoordinatesFromBrowser = async () => {
@@ -75,15 +87,16 @@ const LocationContainer = (props) => {
     useEffect(() => {
       const timeOut = setTimeout(() => {
         if (
-          locationState.location.coordinates.lat === undefined
+          locationState.pristine
         ) {
           fetchCoordinatesFromBrowser()
         }
-      }, 4000);
+      }, 500);
       return () => {
         if (timeOut) {
           clearTimeout(timeOut);
         }
+
       };
     })
 

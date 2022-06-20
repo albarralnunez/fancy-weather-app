@@ -10,12 +10,12 @@ export const locationInitialState = {
         },
         name: undefined,
         zip: undefined,
-        countryCode: "US",
+        countryCode: "",
     },
     loading: true,
     pristine: true,
     zipCodeSearch: "",
-    countryCodeSearch: "US",
+    countryCodeSearch: "",
 };
 export const InitLocationState = () => locationInitialState;
 
@@ -26,6 +26,7 @@ export const LOCATION_ACTION = {
     UPDATE_ZIP_CODE: "UPDATE_ZIP_CODE",
     RESET_LOCATION: "RESET_LOCATION",
     UPDATE_COUNTRY_CODE_SEARCH: "UPDATE_COUNTRY_CODE_SEARCH",
+    UPDATE_COUNTRY: "UPDATE_COUNTRY",
 };
 
 
@@ -70,7 +71,18 @@ export const LocationReducer = (locationState, locationAction) => {
             loading: true,
             pristine: false,
         };
-        
+    case LOCATION_ACTION.UPDATE_COUNTRY: 
+        return {
+            ...locationState,
+            location: {
+                ...locationState.location,
+                countryCode: locationAction.payload.countryCode,
+                name: locationAction.payload.countryName,
+            },
+            countryCodeSearch: locationAction.payload.countryCode,
+            pristine: false,
+            loading: false,
+        }
     default: 
         return locationState;
     }

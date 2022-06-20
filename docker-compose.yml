@@ -8,6 +8,8 @@ services:
       dockerfile: docker/dev.Dockerfile
     expose:
       - 8083
+    ports:
+      - "8083:8083"
     environment:
       - OPEN_WEATHER_API_KEY=${OPEN_WEATHER_API_KEY}
     volumes:

@@ -9,5 +9,6 @@ class GeoClient(ABC):
     def get_location_by_zip_code(self, zip_code: str, country_code: str):
         raise NotImplementedError()
     
-    def get_location_by_coordinates(self, lat: float, lon: float):
+    def get_country_by_coordinates(self, lat: float, lon: float):
         raise NotImplementedError()
+    

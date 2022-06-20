@@ -1,6 +1,7 @@
 import logging
 
 import aiohttp
+from core.domain.queries.get_country_by_coordinates import GetCountryByCoordinatesResponse
 from core.domain.queries.get_location import GetLocationByZipCodeResponse
 from core.domain.geo import Coordinates
 from core.domain.geo_client import GeoClient
@@ -37,5 +38,17 @@ class OpenWeatherGeoClient(GeoClient):
                     lon=open_weather_json["lon"]
                 ),
                 country_code=open_weather_json["country"]
+            )
+            return response
+
+    async def get_country_by_coordinates(self, lat: float, lon: float) -> GetCountryByCoordinatesResponse:
+        url = f"{self.base_url}/reverse?lat={lat}&lon={lon}&limit=1&appid={self.api_key}"
+        logger.debug(f"url: {url}")
+        async with self.aiohttp_client.get(url) as open_weather_response:       
+            open_weather_json = await self._get_json(open_weather_response)
+            logger.debug({url: open_weather_json})
+            response = GetCountryByCoordinatesResponse(
+                country_name=open_weather_json[0]["name"],
+                country_code=open_weather_json[0]["country"]
             )
             return response

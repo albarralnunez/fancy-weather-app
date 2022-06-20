@@ -15,7 +15,7 @@ const Location = (props) => {
 
     const countrySelector = (
       <div>
-        <select onChange={hanleChangeCountry} value={state.location.countryCode}>
+        <select onChange={hanleChangeCountry} value={state.location.countryCodeSearch}>
           {countries.map((country) => (
             <option
               value={country.value}
