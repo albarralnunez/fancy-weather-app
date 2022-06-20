@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
+import countryList from 'react-select-country-list'
 
 const Location = (props) => {
 
@@ -6,8 +7,26 @@ const Location = (props) => {
         state,
         handleResetLocation,
         handleZipCodeSearch,
-        handleUpdateZipCode
+        handleUpdateZipCode,
+        hanleChangeCountry
     } = props
+
+    const countries = useMemo(() => countryList().getData(), [])
+
+    const countrySelector = (
+      <div>
+        <select onChange={hanleChangeCountry} value={state.location.countryCode}>
+          {countries.map((country) => (
+            <option
+              value={country.value}
+              key={country.value}
+            > 
+              {country.label}
+            </option>
+          ))}
+        </select>
+      </div>
+    )
 
     return (
       <>
@@ -15,10 +34,8 @@ const Location = (props) => {
           {
             state.loading 
             ? <b>Loading...</b> 
-            : <b>({state.location.coordinates.lat}, {state.location.coordinates.lon})</b>
+            : <b>({state.location.coordinates.lat}, {state.location.coordinates.lon})[{state.location.countryCode}]</b>
           }
-          <br />
-          <div>{state.location.countryCode}</div>          
           <div className="location-container__search">
             <input
               type="text"
@@ -26,6 +43,7 @@ const Location = (props) => {
               value={state.zipCodeSearch}
               onChange={handleUpdateZipCode}
             />
+            <div>{countrySelector}</div>
           </div>
           <div>
             <button onClick={handleZipCodeSearch}>Search</button>

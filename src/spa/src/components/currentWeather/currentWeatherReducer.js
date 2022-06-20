@@ -25,21 +25,21 @@ export const CURRENT_WEATHER_ACTION = {
 
 export const CurrentWeatherReducer = (currentWeatherState, currentWeatherAction) => {
     switch (currentWeatherAction.type) {
-        case CURRENT_WEATHER_ACTION.UPDATE_CURRENT_WEATHER:
-            const res = {
-                currentWeather: currentWeatherAction.payload,
-                pristine: false,
-                loading: false,
-            }
-            return res
-        case CURRENT_WEATHER_ACTION.SEARCH:
-            return {
-                ...currentWeatherState,
-                loading: true,
-                pristine: false,
-            }
-        default:
-            return currentWeatherState;
+    case CURRENT_WEATHER_ACTION.UPDATE_CURRENT_WEATHER:
+        const res = {
+            currentWeather: currentWeatherAction.payload,
+            pristine: false,
+            loading: false,
+        };
+        return res;
+    case CURRENT_WEATHER_ACTION.SEARCH:
+        return {
+            ...currentWeatherState,
+            loading: true,
+            pristine: false,
+        };
+    default:
+        return currentWeatherState;
     }
 
 };

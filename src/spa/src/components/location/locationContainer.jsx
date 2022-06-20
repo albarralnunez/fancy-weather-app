@@ -9,8 +9,9 @@ import { forecastContext, FORECAST_ACTION } from "../forecast/forecastReducer";
 const LocationContainer = (props) => {
 
     const {locationState, locationDispatch} = useContext(locationContext); 
-    const {currentWeatherState, currentWeatherDispatch} = useContext(currentWeatherContext); 
-    const {forecastState, forecastDispatch} = useContext(forecastContext); 
+    const {currentWeatherDispatch} = useContext(currentWeatherContext); 
+    const {forecastDispatch} = useContext(forecastContext); 
+
 
     var options = {
       enableHighAccuracy: false,
@@ -57,7 +58,7 @@ const LocationContainer = (props) => {
   
   const fetchByZipCode = async () => {
       try {
-        const response = await SearchFancyWeatherApi(`/query/get-location-by-zip-code/?zip_code=${locationState.zipCodeSearch}&country_code=${locationState.countrySearch}`)
+        const response = await SearchFancyWeatherApi(`/query/get-location-by-zip-code/?zip_code=${locationState.zipCodeSearch}&country_code=${locationState.countryCodeSearch}`)
         locationDispatch({
           type: LOCATION_ACTION.UPDATE_COORDINATES,
           payload: {
@@ -102,7 +103,7 @@ const LocationContainer = (props) => {
     const handleUpdateZipCode = async (e) => {
       const target = e.target
       locationDispatch({ 
-        type: LOCATION_ACTION.UPDATE_ZIP_CODE,
+        type: LOCATION_ACTION.UPDATE_ZIP_CODE_SEARCH,
         payload: {
           zipCode: target.value,
         }
@@ -121,14 +122,25 @@ const LocationContainer = (props) => {
       });
       fetchCoordinatesFromBrowser()
     }
+
+    const hanleChangeCountry = async (e) => {
+      const target = e.target
+      locationDispatch({
+        type: LOCATION_ACTION.UPDATE_COUNTRY_CODE_SEARCH,
+        payload: {
+          countryCode: target.value,
+        }
+      });
+    }
   
     return (
       <>
       <Location
         state={locationState}
         handleResetLocation={handleResetLocation}
-        handleUpdateZipCode={handleUpdateZipCode}
         handleZipCodeSearch={handleZipCodeSearch}
+        handleUpdateZipCode={handleUpdateZipCode}
+        hanleChangeCountry={hanleChangeCountry}
       />
       </>
     )
