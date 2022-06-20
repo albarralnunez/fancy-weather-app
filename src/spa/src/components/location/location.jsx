@@ -17,12 +17,13 @@ const Location = (props) => {
             ? <b>Loading...</b> 
             : <b>({state.location.coordinates.lat}, {state.location.coordinates.lon})</b>
           }
-          
+          <br />
+          <div>{state.location.countryCode}</div>          
           <div className="location-container__search">
             <input
               type="text"
               placeholder="Enter zip code"
-              value={state.zip_code_search}
+              value={state.zipCodeSearch}
               onChange={handleUpdateZipCode}
             />
           </div>

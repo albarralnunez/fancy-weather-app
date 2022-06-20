@@ -8,4 +8,4 @@ COPY ./poetry.lock ./pyproject.toml ./
 
 RUN poetry install
 
-CMD ["poetry", "run", "python", "api.py"]
+CMD ["poetry", "run", "python", "src/public_rest_api.py"]

@@ -57,12 +57,13 @@ const LocationContainer = (props) => {
   
   const fetchByZipCode = async () => {
       try {
-        const response = await SearchFancyWeatherApi(`/query/get-location-by-zip-code/?zip_code=${locationState.zip_code_search}&country_code=${locationState.country_search}`)
+        const response = await SearchFancyWeatherApi(`/query/get-location-by-zip-code/?zip_code=${locationState.zipCodeSearch}&country_code=${locationState.countrySearch}`)
         locationDispatch({
           type: LOCATION_ACTION.UPDATE_COORDINATES,
           payload: {
             lat: response.data.coordinates.lat,
             lon: response.data.coordinates.lon,
+            countryCode: response.data.countryCode,
           }
         })
       } catch (e) {
@@ -103,7 +104,7 @@ const LocationContainer = (props) => {
       locationDispatch({ 
         type: LOCATION_ACTION.UPDATE_ZIP_CODE,
         payload: {
-          zip_code: target.value,
+          zipCode: target.value,
         }
       })
     }
